@@ -3,7 +3,6 @@ package com.codingblox.condingblox.utils;
 import com.codingblox.condingblox.model.Contest;
 import com.codingblox.condingblox.model.Question;
 import com.codingblox.condingblox.service.ContestService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Service;
 

@@ -6,11 +6,12 @@ import com.codingblox.condingblox.model.User;
 import com.codingblox.condingblox.model.enums.ContestDifficulty;
 import com.codingblox.condingblox.model.enums.QuestionDifficulty;
 import com.codingblox.condingblox.model.exception.ContestNotFoundException;
-import com.sun.source.doctree.SeeTree;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.util.Map.entry;

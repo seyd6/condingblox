@@ -1,6 +1,8 @@
 package com.codingblox.condingblox.model;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class LeaderBoard {
     Long id;

@@ -5,11 +5,7 @@ import com.codingblox.condingblox.model.enums.ContestDifficulty;
 import com.codingblox.condingblox.repository.ContestRepository;
 import com.codingblox.condingblox.repository.UserRepository;
 import com.codingblox.condingblox.utils.ScoringStrategy;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Map;
 
 import static java.util.Map.entry;

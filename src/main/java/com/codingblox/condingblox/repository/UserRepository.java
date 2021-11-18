@@ -6,7 +6,8 @@ import com.codingblox.condingblox.model.User;
 import com.codingblox.condingblox.model.exception.UserNotFoundException;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class UserRepository {

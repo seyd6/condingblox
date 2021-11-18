@@ -5,17 +5,14 @@ import com.codingblox.condingblox.model.Contest;
 import com.codingblox.condingblox.model.ErrorResponse;
 import com.codingblox.condingblox.model.Question;
 import com.codingblox.condingblox.model.User;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
