@@ -13,12 +13,12 @@ import java.util.stream.IntStream;
 public class DefaultContestRunnerStrategy implements ContestRunnerStrategy {
     private final ScoringStrategy scoringStrategy;
 
-    public DefaultContestRunnerStrategy(ScoringStrategy scoringStrategy) {
+    public DefaultContestRunnerStrategy(final ScoringStrategy scoringStrategy) {
         this.scoringStrategy = scoringStrategy;
     }
 
     @Override
-    public void runContest(Contest contest) {
+    public void runContest(final Contest contest) {
         List<Question> questions = contest.getQuestions();
         Set<User> contestants = contest.getContestants().keySet();
 

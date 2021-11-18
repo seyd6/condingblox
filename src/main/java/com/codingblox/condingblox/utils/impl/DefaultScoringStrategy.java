@@ -27,7 +27,7 @@ public class DefaultScoringStrategy implements ScoringStrategy {
     }
 
     @Override
-    public void score(Contest contest) {
+    public void score(final Contest contest) {
         contest
                 .getContestants()
                 .keySet()

@@ -5,10 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class LeaderBoard {
-    Long id;
-    List<User> leaderboard;
+    final Long id;
+    final List<User> leaderboard;
 
     public LeaderBoard() {
+        this.id = Long.valueOf(1);
         this.leaderboard = new ArrayList<>();
     }
 
