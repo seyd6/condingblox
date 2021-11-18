@@ -34,8 +34,7 @@ public class DefaultScoringStrategy implements ScoringStrategy {
                 .keySet()
                 .stream()
                 .forEach((contestant) -> {
-                    Double contestScore = Double.valueOf(contest.getQuestionsSolvedByContestant().get(contestant).size()
-                                                            - deductions.get(contest.getDifficultyLevel()));
+                    Double contestScore = contest.getContestants().get(contestant) - deductions.get(contest.getDifficultyLevel());
 
                     contest.updateContestantScore(contestant, contestScore);
                     contestant.updateScore(contestant.getScore() + contestScore);
