@@ -6,13 +6,14 @@ import com.codingblox.condingblox.model.User;
 import com.codingblox.condingblox.model.enums.ContestDifficulty;
 import com.codingblox.condingblox.model.enums.QuestionDifficulty;
 import com.codingblox.condingblox.model.exception.ContestNameAlreadyExists;
+import com.codingblox.condingblox.model.exception.UserAlreadyRegisteredToContest;
 import com.codingblox.condingblox.model.exception.UserNotRegisteredToContest;
 import com.codingblox.condingblox.repository.ContestRepository;
 import com.codingblox.condingblox.repository.UserRepository;
 import com.codingblox.condingblox.utils.ContestBuilder;
 import com.codingblox.condingblox.utils.ContestRunnerStrategy;
-import com.codingblox.condingblox.utils.impl.DefaultContestRunnerStrategy;
 import com.codingblox.condingblox.utils.QuestionFactory;
+import com.codingblox.condingblox.utils.impl.DefaultContestRunnerStrategy;
 import com.codingblox.condingblox.utils.impl.DefaultScoringStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,8 @@ public class ContestService {
 
     public ContestService() {
         this.questionFactory = new QuestionFactory();
-        this.contestBuilder = new ContestBuilder();
-        this.contestRunnerStrategy = new DefaultContestRunnerStrategy(new DefaultScoringStrategy());
+        this.contestBuilder = new ContestBuilder(this);
+        this.contestRunnerStrategy = new DefaultContestRunnerStrategy(new DefaultScoringStrategy(contestRepository, userRepository));
     }
 
     public List<Question> createQuestions(String difficultyLevel) {
@@ -59,7 +60,12 @@ public class ContestService {
     }
 
     public List<Question> getQuestions(String difficultyLevel) {
-        return contestRepository.getQuestions(QuestionDifficulty.valueOf(difficultyLevel));
+        List<Question> questions = contestRepository.getQuestions(QuestionDifficulty.valueOf(difficultyLevel));
+
+        if (questions.isEmpty())
+            return createQuestions(difficultyLevel);
+
+        return questions;
     }
 
     public Contest createContest(String contestName, String difficultyLevel, String creatorUserName) throws Exception {
@@ -73,6 +79,7 @@ public class ContestService {
         Contest contest = new Contest(contestId, contestName, creator, contestDifficulty);
         contestBuilder.buildContest(contest);
         contestRepository.addContest(contest);
+        creator.getConductedContests().add(contest);
 
         return contest;
     }
@@ -89,7 +96,11 @@ public class ContestService {
         Contest contest = contestRepository.getContestById(contestId);
         User user = userRepository.getUser(userName);
 
+        if (contest.getContestants().containsKey(user))
+            throw new UserAlreadyRegisteredToContest("User has already been registered to this contest");
+
         contest.addContestant(user);
+        user.getAttendedContests().add(contest);
 
         return contest;
     }
@@ -107,11 +118,13 @@ public class ContestService {
         return contest;
     }
 
-    public void runContest(Long contestId, String creatorUserName) throws Exception {
+    public Contest runContest(Long contestId, String creatorUserName) throws Exception {
         Contest contest = contestRepository.getContestById(contestId);
         User creator = userRepository.getUser(creatorUserName);
 
         contestRunnerStrategy.runContest(contest);
+
+        return contest;
     }
 
     public Contest contestHistory(Long contestId) throws Exception {

@@ -39,6 +39,8 @@ public class ContestRepository {
     }
 
     public void addQuestion(QuestionDifficulty questionDifficulty, Question question) {
+        if (questionDifficulty.equals("MEDIUM"))
+            System.out.println("idhar");
         questions.get(questionDifficulty).add(question);
     }
 

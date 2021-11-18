@@ -6,6 +6,8 @@ import com.codingblox.condingblox.repository.ContestRepository;
 import com.codingblox.condingblox.repository.UserRepository;
 import com.codingblox.condingblox.utils.ScoringStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
@@ -13,15 +15,15 @@ import java.util.Map;
 import static java.util.Map.entry;
 
 public class DefaultScoringStrategy implements ScoringStrategy {
-    @Autowired
-    ContestRepository contestRepository;
+    final ContestRepository contestRepository;
 
-    @Autowired
-    UserRepository userRepository;
+    final UserRepository userRepository;
 
     private final Map<ContestDifficulty, Integer> deductions;
 
-    public DefaultScoringStrategy() {
+    public DefaultScoringStrategy(final ContestRepository contestRepository, final UserRepository userRepository) {
+        this.contestRepository = contestRepository;
+        this.userRepository = userRepository;
         this.deductions = Map.ofEntries(
                 entry(ContestDifficulty.LOW, 50),
                 entry(ContestDifficulty.MEDIUM, 30),

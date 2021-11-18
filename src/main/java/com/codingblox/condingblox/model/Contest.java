@@ -13,7 +13,7 @@ public class Contest {
     final ContestDifficulty difficultyLevel;
     final List<Question> questions;
     final Map<User, Double> contestants;
-    final Map<User, List<Question>> questionsSolvedByContestant;
+    final Map<User, Set<Question>> questionsSolvedByContestant;
 
     public Contest(final Long id, final String contestName, final User creator, final ContestDifficulty difficultyLevel) {
         this.id = id;
@@ -21,20 +21,16 @@ public class Contest {
         this.creator = creator;
         this.difficultyLevel = difficultyLevel;
         this.questions = new ArrayList<>();
-        this.contestants = Map.of(creator, 0.0);
-        this.questionsSolvedByContestant = Map.of(creator, new ArrayList<>());
+        this.contestants = new HashMap<>();
+        this.questionsSolvedByContestant = new HashMap<>();
     }
 
     public void addContestant(User user) {
         contestants.put(user, 0.0);
-        questionsSolvedByContestant.put(user, new ArrayList<>());
+        questionsSolvedByContestant.put(user, new HashSet<>());
     }
 
     public void updateContestantScore(User user, Double score) {
         contestants.put(user, score);
-    }
-
-    public void questionSolved(User user, Question question) {
-        questionsSolvedByContestant.get(user).add(question);
     }
 }

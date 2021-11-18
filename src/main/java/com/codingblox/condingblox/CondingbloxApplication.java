@@ -9,5 +9,4 @@ public class CondingbloxApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CondingbloxApplication.class, args);
 	}
-
 }

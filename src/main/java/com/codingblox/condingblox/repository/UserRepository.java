@@ -45,7 +45,7 @@ public class UserRepository {
                 .stream()
                 .filter(user -> user.getUserName().equals(userName))
                 .findFirst()
-                .orElseThrow(() -> new UserNotFoundException("Uer with given username not found"));
+                .orElseThrow(() -> new UserNotFoundException("User with given username not found"));
     }
 
     public List<Contest> getContestsConductedByUser(String userName) throws Exception {

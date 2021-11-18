@@ -23,6 +23,10 @@ public class UserService {
         return user;
     }
 
+    public List<User> getUsers() {
+        return userRepository.getUsers();
+    }
+
     public List<User> getLeaderboard(String sortingOrder) {
         if (sortingOrder.equals("DESC"))
             return userRepository.getLeaderboardDescending();
