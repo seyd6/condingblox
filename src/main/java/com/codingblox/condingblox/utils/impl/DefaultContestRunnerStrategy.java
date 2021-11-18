@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.stream.IntStream;
 
 public class DefaultContestRunnerStrategy implements ContestRunnerStrategy {
-    private ScoringStrategy scoringStrategy;
+    private final ScoringStrategy scoringStrategy;
 
     public DefaultContestRunnerStrategy(ScoringStrategy scoringStrategy) {
         this.scoringStrategy = scoringStrategy;

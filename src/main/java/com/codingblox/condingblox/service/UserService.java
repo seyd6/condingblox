@@ -13,7 +13,7 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public User createUser(String userName) throws Exception{
+    public User createUser(final String userName) throws Exception{
         if (userRepository.userNameExists(userName))
             throw new UserNameAlreadyExistsException("Entered username already exists, please pick a new username");
 
@@ -27,7 +27,7 @@ public class UserService {
         return userRepository.getUsers();
     }
 
-    public List<User> getLeaderboard(String sortingOrder) {
+    public List<User> getLeaderboard(final String sortingOrder) {
         if (sortingOrder.equals("DESC"))
             return userRepository.getLeaderboardDescending();
 

@@ -12,7 +12,6 @@ import static java.util.Map.entry;
 
 public class DefaultScoringStrategy implements ScoringStrategy {
     final ContestRepository contestRepository;
-
     final UserRepository userRepository;
 
     private final Map<ContestDifficulty, Integer> deductions;

@@ -24,9 +24,9 @@ import java.util.stream.IntStream;
 
 @Service
 public class ContestService {
-    private QuestionFactory questionFactory;
-    private ContestBuilder contestBuilder;
-    private ContestRunnerStrategy contestRunnerStrategy;
+    private final QuestionFactory questionFactory;
+    private final ContestBuilder contestBuilder;
+    private final ContestRunnerStrategy contestRunnerStrategy;
 
     @Autowired
     ContestRepository contestRepository;
@@ -40,7 +40,7 @@ public class ContestService {
         this.contestRunnerStrategy = new DefaultContestRunnerStrategy(new DefaultScoringStrategy(contestRepository, userRepository));
     }
 
-    public List<Question> createQuestions(String difficultyLevel) {
+    public List<Question> createQuestions(final String difficultyLevel) {
         QuestionDifficulty questionDifficulty = QuestionDifficulty.valueOf(difficultyLevel);
         List<Question> questions = new ArrayList<>();
 
@@ -59,7 +59,7 @@ public class ContestService {
         return contestRepository.getQuestions();
     }
 
-    public List<Question> getQuestions(String difficultyLevel) {
+    public List<Question> getQuestions(final String difficultyLevel) {
         List<Question> questions = contestRepository.getQuestions(QuestionDifficulty.valueOf(difficultyLevel));
 
         if (questions.isEmpty())
@@ -68,7 +68,7 @@ public class ContestService {
         return questions;
     }
 
-    public Contest createContest(String contestName, String difficultyLevel, String creatorUserName) throws Exception {
+    public Contest createContest(final String contestName, final String difficultyLevel, final String creatorUserName) throws Exception {
         if (contestRepository.contestNameExists(contestName))
             throw new ContestNameAlreadyExists("Contest name already exists, please pick a different name");
 
@@ -80,6 +80,7 @@ public class ContestService {
         contestBuilder.buildContest(contest);
         contestRepository.addContest(contest);
         creator.getConductedContests().add(contest);
+        creator.getAttendedContests().add(contest);
 
         return contest;
     }
@@ -92,7 +93,7 @@ public class ContestService {
         return contestRepository.getContests(ContestDifficulty.valueOf(difficultyLevel));
     }
 
-    public Contest attendContest(Long contestId, String userName) throws Exception{
+    public Contest attendContest(final Long contestId, final String userName) throws Exception{
         Contest contest = contestRepository.getContestById(contestId);
         User user = userRepository.getUser(userName);
 
@@ -105,7 +106,7 @@ public class ContestService {
         return contest;
     }
 
-    public Contest withdrawContest(Long contestId, String userName) throws Exception{
+    public Contest withdrawContest(final Long contestId, final String userName) throws Exception{
         Contest contest = contestRepository.getContestById(contestId);
         User user = userRepository.getUser(userName);
 
@@ -118,7 +119,7 @@ public class ContestService {
         return contest;
     }
 
-    public Contest runContest(Long contestId, String creatorUserName) throws Exception {
+    public Contest runContest(final Long contestId, final String creatorUserName) throws Exception {
         Contest contest = contestRepository.getContestById(contestId);
         User creator = userRepository.getUser(creatorUserName);
 
@@ -127,7 +128,7 @@ public class ContestService {
         return contest;
     }
 
-    public Contest contestHistory(Long contestId) throws Exception {
+    public Contest contestHistory(final Long contestId) throws Exception {
         return contestRepository.getContestById(contestId);
     }
 
