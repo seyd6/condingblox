@@ -19,11 +19,8 @@ import static java.util.Map.entry;
 @Repository
 public class ContestRepository {
     Long contestIdCounter;
-    Map<ContestDifficulty, List<Contest>> contests;
-    Map<QuestionDifficulty, List<Question>> questions;
-
-    @Autowired
-    UserRepository userRepository;
+    final Map<ContestDifficulty, List<Contest>> contests;
+    final Map<QuestionDifficulty, List<Question>> questions;
 
     public ContestRepository() {
         this.contestIdCounter = Long.valueOf(1);
@@ -40,8 +37,6 @@ public class ContestRepository {
     }
 
     public void addQuestion(QuestionDifficulty questionDifficulty, Question question) {
-        if (questionDifficulty.equals("MEDIUM"))
-            System.out.println("idhar");
         questions.get(questionDifficulty).add(question);
     }
 
